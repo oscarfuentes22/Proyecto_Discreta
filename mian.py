@@ -1,3 +1,32 @@
+alphabet = {
+    "A": 0,
+    "B": 1,
+    "C": 2,
+    "D": 3,
+    "E": 4,
+    "F": 5,
+    "G": 6,
+    "H": 7,
+    "I": 8,
+    "J": 9,
+    "K": 10,
+    "L": 11,
+    "M": 12,
+    "N": 13,
+    "O": 14,
+    "P": 15,
+    "Q": 16,
+    "R": 17,
+    "S": 18,
+    "T": 19,
+    "U": 20,
+    "V": 21,
+    "W": 22,
+    "X": 23,
+    "Y": 24,
+    "Z": 25,
+}
+
 def mcd(a, b):
     c = a % b
     if (c != 0):
@@ -11,8 +40,26 @@ def Encode(p, q, e):
 
     return 0
 
-def Decode():
+def power(b, n, m):
+    if (n == 0):
+        return 1
+    if (n%2) == 0:
+        return (power(b, n/2, m)**2) % m
+    if (n%2) == 1:
+        return (b*power(b, (n-1)/2, m)**2) % m
+
+def Decode(m, e, p, q):
+    n = p*q
+    print(n)
+    f = (p-1)*(q-1)
+    print(f)
+    d, y = resolver_diofantica(e, f)
+    print(d)
+
+    print(power(m, d, n))
+
     return 0
+
 def es_primo(numero):
     if numero <= 1:
         return False
@@ -61,5 +108,7 @@ b = 2436
 
 solucion = resolver_diofantica(a, b)
 print(f"Solución: x = {solucion[0]}, y = {solucion[1]}")
+
+Decode(1366, 17, 53, 37)
 
 
