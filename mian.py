@@ -26,6 +26,7 @@ alphabet = {
     "Y": 24,
     "Z": 25,
 }
+mensaje = "STOP"
 
 def mcd(a, b):
     c = a % b
@@ -33,12 +34,15 @@ def mcd(a, b):
         return mcd(b, c)
     return b
 
-def Encode(p, q, e):
+def Encode(p, q, e, mensaje):
     
     n = p*q
     f = (p-1)*(q-1)
-
-    return 0
+    mcd_e_f = mcd(e, f)
+    mensaje_lista = list(mensaje)
+    for i in mensaje_lista:
+        
+        return 0
 
 def power(b, n, m):
     if (n == 0):
