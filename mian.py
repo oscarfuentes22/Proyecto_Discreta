@@ -62,20 +62,23 @@ def Translate(m: int):
     Msg = str(m)
     if (len(Msg) < 3):
         d1 = 'A'
-        d2 = alphabet_decode.get(m)
+        d2 = alphabet_decode.get(m % 25)
     if (len(Msg) == 3):
         p1 = Msg[0]
-        d1 = alphabet_decode.get(int(p1))
-        p2 = str.join(Msg[1], Msg[2])
-        d2 = alphabet_decode.get(int(p2))
+        d1 = alphabet_decode.get(int(p1) % 25)
+        p2 = str.join(Msg[1] , Msg[2])
+        d2 = alphabet_decode.get(int(p2) % 25)
 
     else:
         p1 = str.join(Msg[0], Msg[1])
-        d1 = alphabet_decode.get(int(p1))
+        d1 = alphabet_decode.get(int(p1) % 25)
         p2 = str.join(Msg[2], Msg[3])
-        d2 = alphabet_decode.get(int(p2))
+        d2 = alphabet_decode.get(int(p2) % 25)
 
-    return str.join(d1, d2)
+    msg_d = str(d1) + str(d2)
+    print(msg_d)
+
+    return msg_d
 
 def AntiTranslate(m: str):
     c1 = m[0]
@@ -89,6 +92,8 @@ def AntiTranslate(m: str):
 
     msg_d = int(str(d1) + str(d2))
     print(msg_d)
+
+    return msg_d
 
 def mcd(a, b):
     c = a % b
@@ -184,5 +189,17 @@ b = 2436
 Decode(1366, 17, 53, 37)
 Decode(416, 13, 43, 59)
 
-AntiTranslate("ST")
+b1 = AntiTranslate("ST")
+b2 = AntiTranslate("OP")
 
+enc1 = pow(b1, 13, 2537)
+enc2 = pow(b2, 13, 2537)
+
+print(enc1)
+print(enc2)
+
+coded1 = Translate(enc1)
+coded2 = Translate(enc2)
+
+print(coded1)
+print(coded2)
