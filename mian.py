@@ -1,3 +1,7 @@
+#Universidad del Valle de Guatemala
+#Nelson Escalante - 22046
+#Oscar Fuentes - 
+
 alphabet_decode = {
     0: 'A',
     1: 'B', 
@@ -28,55 +32,53 @@ alphabet_decode = {
 }
 
 alphabet_encode = {
-    'A': 0, 
-    'B': 1, 
-    'C': 2, 
-    'D': 3, 
-    'E': 4, 
-    'F': 5, 
-    'G': 6, 
-    'H': 7, 
-    'I': 8, 
-    'J': 9, 
-    'K': 10, 
-    'L': 11, 
-    'M': 12, 
-    'N': 13, 
-    'O': 14, 
-    'P': 15, 
-    'Q': 16, 
-    'R': 17, 
-    'S': 18, 
-    'T': 19, 
-    'U': 20, 
-    'V': 21,
-    'W': 22,
-    'X': 23,
-    'Y': 24,
-    'Z': 25
+    'A': "0", 
+    'B': "01", 
+    'C': "02", 
+    'D': "03", 
+    'E': "04", 
+    'F': "05", 
+    'G': "06", 
+    'H': "07", 
+    'I': "08", 
+    'J': "09", 
+    'K': "10", 
+    'L': "11", 
+    'M': "12", 
+    'N': "13", 
+    'O': "14", 
+    'P': "15", 
+    'Q': "16", 
+    'R': "17", 
+    'S': "18", 
+    'T': "19", 
+    'U': "20", 
+    'V': "21",
+    'W': "22",
+    'X': "23",
+    'Y': "24",
+    'Z': "25"
 }
 
 mensaje = "STOP"
 
 def Translate(m: int):
     Msg = str(m)
-    if (len(Msg) < 3):
+    if (len(Msg) <= 2):
         d1 = 'A'
         d2 = alphabet_decode.get(m % 25)
-    if (len(Msg) == 3):
+    elif (len(Msg) == 3):
         p1 = Msg[0]
         d1 = alphabet_decode.get(int(p1) % 25)
-        p2 = str.join(Msg[1] , Msg[2])
+        p2 = Msg[1] + Msg[2]
         d2 = alphabet_decode.get(int(p2) % 25)
-
     else:
-        p1 = str.join(Msg[0], Msg[1])
+        p1 = Msg[0] + Msg[1]
         d1 = alphabet_decode.get(int(p1) % 25)
-        p2 = str.join(Msg[2], Msg[3])
+        p2 = Msg[2] + Msg[3]
         d2 = alphabet_decode.get(int(p2) % 25)
 
     msg_d = str(d1) + str(d2)
-    print(msg_d)
 
     return msg_d
 
@@ -87,79 +89,28 @@ def AntiTranslate(m: str):
     d1 = alphabet_encode.get(c1)
     d2 = alphabet_encode.get(c2)
 
-    print(d1)
-    print(d2)
-
-    msg_d = int(str(d1) + str(d2))
-    print(msg_d)
+    msg_d = int(d1 + d2)
 
     return msg_d
 
-def mcd(a, b):
-    c = a % b
-    if (c != 0):
-        return mcd(b, c)
-    return b
+def Encode(m, e, n):
+    num = AntiTranslate(m)
+    print("Letras a numeros: " + str(num))
 
-def Encode(p, q, e, mensaje):
-    
+    enc = pow(num, e, n)
+    return enc
+
+def Decode(m, p, q, e):
     n = p*q
-    f = (p-1)*(q-1)
-    mcd_e_f = mcd(e, f)
-    d1,d2 = Translate(mensaje)
-    power(d1, e, n)
-    power(d2, e, n)
-    AntiTranslate(d1, d2)
-    return 0
-    
+    phi = (p-1) * (q-1)
+    d = resolver_diofantica(e, phi)
 
+    num_dec = pow(m, d, n)
+    print("Numero descifrado: " + str(num_dec))
 
-def power(b, n, m):
-    if (n == 0):
-        return 1
-    if (n%2) == 0:
-        return (power(b, n/2, m)**2) % m
-    if (n%2) == 1:
-        return (b*power(b, (n-1)/2, m)**2) % m
+    dec = Translate(num_dec)
+    return dec
 
-def Decode(m, e, p, q):
-    n = p*q
-    #print(n)
-    f = (p-1)*(q-1)
-    #print(f)
-    d = resolver_diofantica(e, f)
-    #print(d)
-
-    #print(power(m, d, n))
-    to_translate = pow(m, d, f)
-
-    Translate(to_translate)
-
-    return 0
-
-def es_primo(numero):
-    if numero <= 1:
-        return False
-    if numero <= 3:
-        return True
-    if numero % 2 == 0 or numero % 3 == 0:
-        return False
-    i = 5
-    while i * i <= numero:
-        if numero % i == 0 or numero % (i + 2) == 0:
-            return False
-        i += 6
-    return True
-
-def verificar_primos(p, q):
-    if es_primo(p) and es_primo(q):
-        print(f"{p} y {q} son números primos.")
-    else:
-        print(f"{p} y {q} no son números primos.")
-
-# Aquí puedes ingresar los valores de p y q que desees verificar
-#p = int(input("Ingrese el valor de p: "))
-#q = int(input("Ingrese el valor de q: "))
 def euclides_extendido(a, b):
     if a == 0:
         return b, 0, 1
@@ -179,27 +130,10 @@ def resolver_diofantica(a, b):
 
     return x
 
-# Ejemplo de uso
-a = 13
-b = 2436
-
-#solucion = resolver_diofantica(a, b)
-#print(f"Solución: x = {solucion[0]}, y = {solucion[1]}")
-
-Decode(1366, 17, 53, 37)
-Decode(416, 13, 43, 59)
-
-b1 = AntiTranslate("ST")
-b2 = AntiTranslate("OP")
-
-enc1 = pow(b1, 13, 2537)
-enc2 = pow(b2, 13, 2537)
-
-print(enc1)
-print(enc2)
-
-coded1 = Translate(enc1)
-coded2 = Translate(enc2)
-
-print(coded1)
-print(coded2)
+#Primer inciso
+print("Numero cifrado: " + str(Encode("ST", 13, 2537)))
+print("Numero cifrado: " + str(Encode("OP", 13, 2537)))
+print("============")
+#Segundo inciso
+print("Traduccion: " + Decode(981, 43, 59, 13))
+print("Traduccion: " + Decode(461, 43, 59, 13))
