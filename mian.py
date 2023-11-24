@@ -60,14 +60,10 @@ mensaje = "STOP"
 
 def Translate(m: int):
     Msg = str(m)
-<<<<<<< HEAD
     if (len(Msg) < 3):
         d1 = 'A'
         d2 = alphabet_decode.get(m)
     if (len(Msg) == 3):
-=======
-    if (len(Msg) <= 3):
->>>>>>> fc5367236f75cf4fa59291af41df5ac627e1cd40
         p1 = Msg[0]
         d1 = alphabet_decode.get(int(p1))
         p2 = str.join(Msg[1], Msg[2])
@@ -81,6 +77,7 @@ def Translate(m: int):
 
     msg_d = str.join(d1, d2)
     print(msg_d)
+    
 def AntiTranslate(m: str):
     Msg = m
     if (len(Msg) <= 3):
