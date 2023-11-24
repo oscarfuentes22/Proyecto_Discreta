@@ -72,8 +72,7 @@ def Translate(m: int):
         p2 = str.join(Msg[2], Msg[3])
         d2 = alphabet_decode.get(int(p2))
 
-    msg_d = str.join(d1, d2)
-    print(msg_d)
+    return str.join(d1, d2)
 def AntiTranslate(m: str):
     Msg = m
     if (len(Msg) <= 3):
@@ -102,10 +101,13 @@ def Encode(p, q, e, mensaje):
     n = p*q
     f = (p-1)*(q-1)
     mcd_e_f = mcd(e, f)
-    mensaje_lista = list(mensaje)
-    for i in mensaje_lista:
-        
-        return 0
+    d1,d2 = Translate(mensaje)
+    power(d1, e, n)
+    power(d2, e, n)
+    AntiTranslate(d1, d2)
+    return 0
+    
+
 
 def power(b, n, m):
     if (n == 0):
