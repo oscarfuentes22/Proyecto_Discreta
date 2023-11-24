@@ -60,7 +60,10 @@ mensaje = "STOP"
 
 def Translate(m: int):
     Msg = str(m)
-    if (len(Msg) <= 3):
+    if (len(Msg) < 3):
+        d1 = 'A'
+        d2 = alphabet_decode.get(m)
+    if (len(Msg) == 3):
         p1 = Msg[0]
         d1 = alphabet_decode.get(int(p1))
         p2 = str.join(Msg[1], Msg[2])
@@ -73,21 +76,18 @@ def Translate(m: int):
         d2 = alphabet_decode.get(int(p2))
 
     return str.join(d1, d2)
+
 def AntiTranslate(m: str):
-    Msg = m
-    if (len(Msg) <= 3):
-        p1 = Msg[0]
-        d1 = alphabet_encode.get(p1)
-        p2 = str.join(Msg[1], Msg[2])
-        d2 = alphabet_encode.get(p2)
+    c1 = m[0]
+    c2 = m[1]
 
-    else:
-        p1 = str.join(Msg[0], Msg[1])
-        d1 = alphabet_encode.get(p1)
-        p2 = str.join(Msg[2], Msg[3])
-        d2 = alphabet_encode.get(p2)
+    d1 = alphabet_encode.get(c1)
+    d2 = alphabet_encode.get(c2)
 
-    msg_d = str.join(d1, d2)
+    print(d1)
+    print(d2)
+
+    msg_d = int(str(d1) + str(d2))
     print(msg_d)
 
 def mcd(a, b):
@@ -184,4 +184,5 @@ b = 2436
 Decode(1366, 17, 53, 37)
 Decode(416, 13, 43, 59)
 
+AntiTranslate("ST")
 
